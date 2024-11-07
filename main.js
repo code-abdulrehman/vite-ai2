@@ -4,7 +4,7 @@ import MarkdownIt from 'markdown-it';
 import { maybeShowApiKeyBanner } from './gemini-api-banner';
 import './style.css';
 
-let API_KEY = 'AIzaSyCAf4gwyX_LprJ3aEc-8cF9DnlhaLKK9uA';
+let API_KEY = process.env.API_KEY
 let form = document.querySelector('form');
 let promptInput = document.querySelector('input[name="prompt"]');
 let output = document.querySelector('.output');
@@ -53,7 +53,7 @@ form.onsubmit = async (ev) => {
     // Generate response from model
     const genAI = new GoogleGenerativeAI(API_KEY);
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: "gemini-1.5-pro",
     });
 
     const result = await model.generateContentStream({ contents });
