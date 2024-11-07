@@ -4,7 +4,8 @@ import MarkdownIt from 'markdown-it';
 import { maybeShowApiKeyBanner } from './gemini-api-banner';
 import './style.css';
 
-let API_KEY = process.env.API_KEY
+let API_KEY = import.meta.env.VITE_API_KEY;
+
 let form = document.querySelector('form');
 let promptInput = document.querySelector('input[name="prompt"]');
 let output = document.querySelector('.output');
