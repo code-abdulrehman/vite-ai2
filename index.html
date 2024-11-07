@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite+Ai</title>
+  <link rel="shortcut icon" href="/gemini.svg" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main>
+    <div class="header">
+      <h1>Vite+Ai (Gemini API)</h1>       
+      <div class="file-input-wrapper">
+        <label for="image-upload">
+          <img src="/gemini.svg" alt="gemni" width="20"><small>upload</small>
+        </label>
+        <input type="file" id="image-upload" accept="image/*">
+      </div>
+    </div>
+
+    <form>
+      <div class="image-picker" id="custom-image-container">
+        <!-- Predefined Images -->
+        <span>
+          <label class="image-choice">
+            <input type="radio" name="chosen-image" value="/baked_goods_3.jpg">
+            <img src="/baked_goods_3.jpg">
+          </label>
+        </span>
+
+        <span>
+          <label class="image-choice">
+            <input type="radio" name="chosen-image" value="/math-problem.jpeg">
+            <img src="/math-problem.jpeg">
+          </label>
+        </span>
+
+        <span>
+          <label class="image-choice">
+            <input type="radio" name="chosen-image" value="/killer-problem.jpeg">
+            <img src="/pain-killer.jpeg">
+          </label>
+        </span>
+      </div>
+
+      <div class="prompt-box">
+        <label>
+          <input name="prompt" placeholder="Enter instructions here" type="text">
+        </label>
+        <button type="submit">Go</button>
+      </div>
+    </form>
+    <p class="output">(Results will appear here)</p>
+  </main>
+
+  <script type="module" src="/main.js"></script>
+  <script>
+    const imageInput = document.querySelector('#image-upload');
+    const customImageContainer = document.querySelector('#custom-image-container');
+
+    imageInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+          // Create a new span element to wrap the new image and radio button
+          const newImageWrapper = document.createElement('span');
+
+          // Create a new radio button for the custom image
+          const newRadioLabel = document.createElement('label');
+          newRadioLabel.classList.add('image-choice');
+
+          const newRadioInput = document.createElement('input');
+          newRadioInput.type = 'radio';
+          newRadioInput.name = 'chosen-image';
+          newRadioInput.value = reader.result;
+          newRadioInput.checked = true;
+
+          const newImage = document.createElement('img');
+          newImage.src = reader.result;
+
+          // Create delete icon for the image
+          const deleteIcon = document.createElement('span');
+          deleteIcon.textContent = '✕';
+          deleteIcon.classList.add('delete-icon');
+          deleteIcon.style.position = 'absolute';
+          deleteIcon.style.top = '4px';
+          deleteIcon.style.right = '4px';
+          deleteIcon.style.cursor = 'pointer';
+          deleteIcon.style.color = 'red';
+          deleteIcon.style.fontWeight = 'bold';
+
+          // Remove image on delete icon click
+          deleteIcon.addEventListener('click', () => {
+            newImageWrapper.remove();
+          });
+
+          // Add double-click listener to deselect the image
+          newRadioLabel.addEventListener('dblclick', () => {
+            if (newRadioInput.checked) {
+              newRadioInput.checked = false;
+            }
+          });
+
+          // Append radio button and image to the label
+          newRadioLabel.appendChild(newRadioInput);
+          newRadioLabel.appendChild(newImage);
+          newRadioLabel.appendChild(deleteIcon);
+
+          // Append label to wrapper span, and span to container
+          newImageWrapper.appendChild(newRadioLabel);
+          customImageContainer.appendChild(newImageWrapper);
+        };
+
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Add event listeners to predefined images to allow deselecting them on double-click
+    document.querySelectorAll('.image-choice').forEach(label => {
+      label.addEventListener('dblclick', () => {
+        const radio = label.querySelector('input[type="radio"]');
+        if (radio && radio.checked) {
+          radio.checked = false;
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
