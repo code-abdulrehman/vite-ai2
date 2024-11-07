@@ -1,10 +1,10 @@
-import { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from "@google/generative-ai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import Base64 from 'base64-js';
 import MarkdownIt from 'markdown-it';
 import { maybeShowApiKeyBanner } from './gemini-api-banner';
 import './style.css';
 
-let API_KEY = import.meta.env.VITE_API_KEY;
+let API_KEY = import.meta.env.VITE_API_KEY || 'EMPTY';
 
 let form = document.querySelector('form');
 let promptInput = document.querySelector('input[name="prompt"]');
@@ -19,15 +19,19 @@ form.onsubmit = async (ev) => {
 
   try {
     const promptText = promptInput.value;
-    let imageUrl = form.elements.namedItem('chosen-image').value;
+    let imageUrl = form.elements.namedItem('chosen-image').value;  // This will be the value of the selected image URL
+
     let contents;
     let imagePreviewHTML = '';
 
+    // Check if an image is selected (either via the predefined images or uploaded custom image)
     if (imageUrl) {
+      // If image is selected, fetch and encode the image
       const imageBase64 = await fetch(imageUrl)
         .then(r => r.arrayBuffer())
         .then(a => Base64.fromByteArray(new Uint8Array(a)));
 
+      // If both text and image are provided, send both
       contents = [
         {
           role: 'user',
@@ -39,17 +43,23 @@ form.onsubmit = async (ev) => {
       ];
 
       imagePreviewHTML = `<img src="${imageUrl}" alt="Selected Image" style="width: 50px; height: 50px; margin-right: 8px;">`;
+
+      // Add user's prompt (with or without image) to chat history
+      chatHistory.push({ type: 'user', content: promptText, image: imagePreviewHTML });
     } else {
+      // If no image is selected, just send the text prompt
       contents = [
         {
           role: 'user',
-          parts: [{ text: promptText }]
+          parts: [
+            { text: promptText }
+          ]
         }
       ];
-    }
 
-    // Add user's prompt to chat history
-    chatHistory.push({ type: 'user', content: promptText, image: imagePreviewHTML });
+      // Add user's prompt (without image) to chat history
+      chatHistory.push({ type: 'user', content: promptText, image: '' });
+    }
 
     // Generate response from model
     const genAI = new GoogleGenerativeAI(API_KEY);
@@ -70,16 +80,23 @@ form.onsubmit = async (ev) => {
     // Add model's response to chat history
     chatHistory.push({ type: 'model', content: modelResponse });
 
-    // Display the entire chat history
+    // Display the entire chat history as Q&A pairs in individual boxes
     output.innerHTML = chatHistory
-      .map(entry => {
+      .map((entry, index) => {
         if (entry.type === 'user') {
-          return `<p><strong>You:</strong> ${entry.image || ''} ${entry.content}</p>`;
-        } else {
-          return `<p><strong>AI:</strong> ${entry.content}</p>`;
+          const nextEntry = chatHistory[index + 1]; // Get the AI response
+          if (nextEntry && nextEntry.type === 'model') {
+            return `
+              <div class="qa-box" style="border: 2px solid #007BFF; padding: 15px; margin-bottom: 10px; border-radius: 8px;">
+                <strong>You:</strong> ${entry?.image ? entry?.image : ''} ${entry.content}
+                <hr>
+                <strong>AI:</strong> ${nextEntry.content}
+              </div>
+            `;
+          }
         }
       })
-      .join('<hr>');
+      .join(''); // Join all the generated Q&A pairs into one string
 
     promptInput.value = ""; // Clear input after submission
   } catch (e) {
