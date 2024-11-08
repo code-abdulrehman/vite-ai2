@@ -37,12 +37,14 @@ form.onsubmit = async (ev) => {
           role: 'user',
           parts: [
             { inline_data: { mime_type: 'image/jpeg', data: imageBase64 } },
-            { text: promptText }
+            {
+               text: promptText || ''
+             }
           ]
         }
       ];
 
-      imagePreviewHTML = `<img src="${imageUrl}" alt="Selected Image" style="width: 50px; height: 50px; margin-right: 8px;">`;
+      imagePreviewHTML = `<img src="${imageUrl}" alt="Selected Image" style="width: 50px; height: 50px; margin-right: 8px; float:right;">`;
 
       // Add user's prompt (with or without image) to chat history
       chatHistory.push({ type: 'user', content: promptText, image: imagePreviewHTML });
