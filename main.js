@@ -3,6 +3,7 @@ import Base64 from 'base64-js';
 import MarkdownIt from 'markdown-it';
 import { maybeShowApiKeyBanner } from './gemini-api-banner';
 import './style.css';
+import { RiRobot2Line } from "react-icons/ri";
 
 let API_KEY = import.meta.env.VITE_API_KEY || 'EMPTY';
 

@@ -32,11 +32,17 @@ main,
 main {
   background-color: #fff;
 }
+
 .header {
-display: flex;
-justify-content: space-between;
-align-items: center;
+  position: sticky;
+  top: 0px;
+  background:white;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
 h1 {
   display: flex;
   align-items: center;
@@ -59,11 +65,20 @@ form {
 }
 
 .image-picker {
+  /* position: sticky;
+  top: 60px; */
+  max-height:307px;
+  overflow:auto;
+  background: white;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   width: 100%;
-  gap: 8px;
+  padding: 10px;
+  gap: 6px;
+  box-sizing: border-box;
+  border: 2px solid var(--accent-color);
+  border-radius: 10px;
   margin-top: 24px;
 }
 
@@ -104,8 +119,8 @@ form {
 }
 
 .image-choice img {
-  width: 137px;
-  height: 137px;
+  width: 132px;
+  height: 132px;
 }
 
 .image-choice input {
@@ -171,19 +186,19 @@ button:hover {
 }
 
 .image-choice img {
-  width: 137px;
-  height: 137px;
+  width: 132px;
+  height: 132px;
   border: 2px solid #ddd;
   cursor: pointer;
 }
 
-.image-choice input:checked + img {
+.image-choice input:checked+img {
   border-color: blue;
 }
 
 .file-input-wrapper {
   display: inline-block;
-  width: 137px;
+  width: 132px;
   height: 30px;
   border: 2px solid #ddd;
   border-radius: 8px;
@@ -211,11 +226,15 @@ button:hover {
 }
 
 .prompt-box {
+  position: sticky;
+  bottom: 0px;
+  background:white;
+  min-height: 70px;
   margin-top: 24px;
   width: 100%;
   display: flex;
   gap: 8px;
-  align-items: flex-end;
+  align-items: center;
 }
 
 label {
