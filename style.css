@@ -2,54 +2,64 @@ body {
   margin: 24px;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
-  --accent-color: #076EFF;
-  color: #202124;
+  --accent-color: #041C32; /* Golden yellow for highlight */
+  --primary-color: #041C32; /* Deep blue */
+  --secondary-color: #04293A; /* Dark teal */
+  --tertiary-color: #064663; /* Steel blue */
+  --background-color: #041C32; /* Dark blue for background */
+  --text-color: #E0E0E0; /* Light text color */
+  color: var(--text-color);
+  background-color: var(--background-color);
 }
 
 main,
 .api-key-banner {
   width: 100%;
-  padding: 24px;
+  padding: 8px 24px;
+  padding-top: 22px;
   max-width: 460px;
   margin: 0 auto;
   border-radius: 20px;
+  background-color: #1E2A32; /* Slightly lighter background */
 }
 
 .api-key-banner {
-  background-color: #FFDDB7;
+  background-color: #1E2A32; /* Dark background for banner */
   font-weight: bold;
   margin-bottom: 16px;
 }
 
 .api-key-banner a {
-  color: var(--accent-color);
+  color: var(--accent-color); /* Golden yellow for links */
 }
 
 * {
-  outline-color: var(--accent-color);
+  outline-color: var(--accent-color); /* Golden yellow outline for focus */
 }
 
 main {
-  background-color: #fff;
+  background-color: #1E2A32; /* Dark background */
 }
 
 .header {
   position: sticky;
   top: 0px;
-  background:white;
+  background: var(--primary-color); /* Deep blue header */
+  color: var(--text-color); /* Light text color */
   height: 60px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-  z-index:100;
+  z-index: 100;
 }
 
 h1 {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   font-size: 24px;
+  color: var(--text-color); /* Light text color for the title */
 }
 
 h1::before {
@@ -66,9 +76,9 @@ form {
 }
 
 .image-picker {
-  max-height:307px;
-  overflow:auto;
-  background: white;
+  max-height: 307px;
+  overflow: auto;
+  background: #2A3A4D; /* Darker background for image picker */
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -131,34 +141,30 @@ form {
   box-shadow: 0 0 0 4px var(--accent-color) inset;
 }
 
-.prompt-box {
-  margin: 24px 0;
-  width: 100%;
-  display: flex;
-  gap: 8px;
-  align-items: flex-end;
-}
-
 label {
   display: flex;
   flex: 1;
   flex-direction: column;
   gap: 8px;
   font-size: 12px;
+  color: var(--text-color); /* Light text color for labels */
 }
 
 input,
+textarea,
 button {
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 12px 16px;
   font-family: unset;
   font-size: 16px;
+  background-color: #2A3A4D; /* Dark background for inputs */
+  color: var(--text-color); /* Light text color for inputs */
 }
 
 button {
   border-color: var(--accent-color);
-  background-color: var(--accent-color);
+  background-color: var(--accent-color); /* Golden yellow for button */
   color: white;
   font-weight: bold;
   cursor: pointer;
@@ -173,7 +179,6 @@ button:focus-visible {
 button:hover {
   opacity: 0.95;
 }
-
 
 .image-choice {
   position: relative;
@@ -191,8 +196,8 @@ button:hover {
   cursor: pointer;
 }
 
-.image-choice input:checked+img {
-  border-color: blue;
+.image-choice input:checked + img {
+  border-color: var(--primary-color);
 }
 
 .file-input-wrapper {
@@ -201,7 +206,7 @@ button:hover {
   height: 30px;
   border: 2px solid #ddd;
   border-radius: 8px;
-  background-color: #f7f7f7;
+  background-color: #3A4A60; /* Darker background for file input */
   position: relative;
   cursor: pointer;
 }
@@ -212,7 +217,7 @@ button:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 24px;
-  color: #333;
+  color: var(--text-color); /* Light text for file input label */
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -227,13 +232,47 @@ button:hover {
 .prompt-box {
   position: sticky;
   bottom: 0px;
-  background:white;
-  min-height: 70px;
-  margin-top: 24px;
+  background: var(--secondary-color); /* Dark teal for prompt box */
+  padding: 8px;
   width: 100%;
   display: flex;
+  align-items: flex-end;
   gap: 8px;
-  align-items: center;
+  border: 2px solid var(--accent-color); /* Border in golden yellow */
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.prompt-box textarea:empty {
+  height: 80px;
+}
+
+textarea {
+  resize: none;
+  overflow-y: auto;
+  max-height: 200px;
+  height: 80px;
+  padding: 8px;
+  font-size: 1rem;
+  line-height: 1.5;
+  width: 100%;
+  box-sizing: border-box;
+  border: none; /* Remove border from textarea */
+  background-color: #2A3A4D; /* Dark background for textarea */
+  color: var(--text-color); /* Light text color for textarea */
+}
+
+button {
+  align-self: flex-start;
+  padding: 8px 10px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: var(--accent-color);
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  outline: none;
 }
 
 label {
@@ -241,15 +280,6 @@ label {
   flex-direction: column;
   gap: 8px;
   font-size: 12px;
-}
-
-input,
-button {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 12px 16px;
-  font-family: unset;
-  font-size: 16px;
 }
 
 button {
@@ -264,7 +294,6 @@ button:hover {
   opacity: 0.9;
 }
 
-
 .delete-icon {
   position: absolute;
   top: 4px;
@@ -273,11 +302,20 @@ button:hover {
   color: red;
   font-size: 16px;
   font-weight: bold;
-  background-color: white;
+  background-color: var(--primary-color); /* Deep blue for delete icon */
   border-radius: 50%;
   width: 20px;
   height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+textarea:focus {
+  outline: none;
+  border: none;
+}
+
+.output {
+  min-height: 418px;
 }

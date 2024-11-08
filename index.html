@@ -1,10 +1,9 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vite+Ai</title>
+  <title>Vite+Ai (Gemini API)</title>
   <link rel="shortcut icon" href="/gemini.svg" type="image/x-icon">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -30,14 +29,12 @@
             <img src="/baked_goods_3.jpg">
           </label>
         </span>
-
         <span>
           <label class="image-choice">
             <input type="radio" name="chosen-image" value="/gemni.jpg">
             <img src="/gemni.jpg">
           </label>
         </span>
-
         <span>
           <label class="image-choice">
             <input type="radio" name="chosen-image" value="/pain_killer.jpeg">
@@ -49,14 +46,18 @@
       <p class="output">(Results will appear here)</p>
       <div class="prompt-box">
         <label>
-          <input name="prompt" placeholder="Enter instructions here" type="text">
+          <textarea name="prompt" placeholder="Enter instructions here"></textarea>
         </label>
-        <button type="submit">Go</button>
+        <div><button type="submit">➡</button></div>
       </div>
     </form>
+
+    <div style="text-align: center;"><small>2024 &copy; AR</small></div>
   </main>
 
   <script type="module" src="/main.js"></script>
+
+  <!-- Image Upload and Handling Script -->
   <script>
     const imageInput = document.querySelector('#image-upload');
     const customImageContainer = document.querySelector('#custom-image-container');
@@ -67,10 +68,7 @@
         const reader = new FileReader();
 
         reader.onloadend = () => {
-          // Create a new span element to wrap the new image and radio button
           const newImageWrapper = document.createElement('span');
-
-          // Create a new radio button for the custom image
           const newRadioLabel = document.createElement('label');
           newRadioLabel.classList.add('image-choice');
 
@@ -83,7 +81,6 @@
           const newImage = document.createElement('img');
           newImage.src = reader.result;
 
-          // Create delete icon for the image
           const deleteIcon = document.createElement('span');
           deleteIcon.textContent = '✕';
           deleteIcon.classList.add('delete-icon');
@@ -94,24 +91,17 @@
           deleteIcon.style.color = 'red';
           deleteIcon.style.fontWeight = 'bold';
 
-          // Remove image on delete icon click
-          deleteIcon.addEventListener('click', () => {
-            newImageWrapper.remove();
-          });
+          deleteIcon.addEventListener('click', () => newImageWrapper.remove());
 
-          // Add double-click listener to deselect the image
           newRadioLabel.addEventListener('dblclick', () => {
             if (newRadioInput.checked) {
               newRadioInput.checked = false;
             }
           });
 
-          // Append radio button and image to the label
           newRadioLabel.appendChild(newRadioInput);
           newRadioLabel.appendChild(newImage);
           newRadioLabel.appendChild(deleteIcon);
-
-          // Append label to wrapper span, and span to container
           newImageWrapper.appendChild(newRadioLabel);
           customImageContainer.appendChild(newImageWrapper);
         };
@@ -120,7 +110,6 @@
       }
     });
 
-    // Add event listeners to predefined images to allow deselecting them on double-click
     document.querySelectorAll('.image-choice').forEach(label => {
       label.addEventListener('dblclick', () => {
         const radio = label.querySelector('input[type="radio"]');
@@ -129,7 +118,14 @@
         }
       });
     });
+
+    const textarea = document.querySelector('textarea');
+
+textarea.addEventListener('input', () => {
+  textarea.style.height = 'auto'; // Reset height to auto to calculate new height
+  textarea.style.height = `${textarea.scrollHeight}px`; // Set new height based on content
+});
+
   </script>
 </body>
-
 </html>

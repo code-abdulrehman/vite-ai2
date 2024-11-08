@@ -8,11 +8,24 @@ import { RiRobot2Line } from "react-icons/ri";
 let API_KEY = import.meta.env.VITE_API_KEY || 'EMPTY';
 
 let form = document.querySelector('form');
-let promptInput = document.querySelector('input[name="prompt"]');
+let promptInput = document.querySelector('textarea[name="prompt"]');
 let output = document.querySelector('.output');
+
+function resetTextareaHeight() {
+  promptInput.style.height = '80px'; // Reset height
+}
+
+
+// Set event listener for the prompt input to adjust height dynamically
+promptInput.addEventListener('input', () => {
+  promptInput.style.height = 'auto'; // Allow dynamic height
+  promptInput.style.height = promptInput.scrollHeight + 'px'; // Adjust to scroll height
+});
 
 // Array to store chat history
 let chatHistory = [];
+
+
 
 form.onsubmit = async (ev) => {
   ev.preventDefault();
@@ -90,7 +103,7 @@ form.onsubmit = async (ev) => {
           const nextEntry = chatHistory[index + 1]; // Get the AI response
           if (nextEntry && nextEntry.type === 'model') {
             return `
-              <div class="qa-box" style="border: 2px solid #007BFF; padding: 15px; margin-bottom: 10px; border-radius: 8px;">
+              <div class="qa-box" style="border: 2px solid #041C32; padding: 15px; margin-bottom: 10px; border-radius: 8px; overflow:auto;">
                 <strong>You:</strong> ${entry?.image ? entry?.image : ''} ${entry.content}
                 <hr>
                 <strong>AI:</strong> ${nextEntry.content}
@@ -101,7 +114,13 @@ form.onsubmit = async (ev) => {
       })
       .join(''); // Join all the generated Q&A pairs into one string
 
-    promptInput.value = ""; // Clear input after submission
+ 
+      promptInput.value = ""; 
+    resetTextareaHeight(); 
+    window.scrollTo({
+      top: document.documentElement.scrollHeight || document.body.scrollHeight,
+      behavior: 'smooth' // Adds a smooth scroll effect
+    });
   } catch (e) {
     output.innerHTML += `<hr><span style="color:red;">Error: ${e.message || e}</span>`;
   }
