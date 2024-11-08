@@ -65,8 +65,6 @@ form {
 }
 
 .image-picker {
-  /* position: sticky;
-  top: 60px; */
   max-height:307px;
   overflow:auto;
   background: white;
