@@ -42,8 +42,6 @@ main {
 }
 
 .header {
-  position: sticky;
-  top: 0px;
   background: var(--primary-color); /* Deep blue header */
   color: var(--text-color); /* Light text color */
   height: 60px;
@@ -202,13 +200,17 @@ button:hover {
 
 .file-input-wrapper {
   display: inline-block;
-  width: 132px;
+  width: 30px;
   height: 30px;
   border: 2px solid #ddd;
   border-radius: 8px;
-  background-color: #3A4A60; /* Darker background for file input */
+  background-color: #ddd; /* Darker background for file input */
   position: relative;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 .file-input-wrapper label {
@@ -284,8 +286,8 @@ label {
 
 button {
   border-color: var(--accent-color);
-  background-color: var(--accent-color);
-  color: white;
+  background-color: #ddd;
+  color: var(--accent-color);
   font-weight: bold;
   cursor: pointer;
 }

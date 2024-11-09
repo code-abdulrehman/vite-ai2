@@ -12,12 +12,6 @@
   <main>
     <div class="header">
       <h1>Vite+Ai (Gemini API)</h1>       
-      <div class="file-input-wrapper">
-        <label for="image-upload">
-          <img src="/gemini.svg" alt="gemni" width="20"><small>upload</small>
-        </label>
-        <input type="file" id="image-upload" accept="image/*">
-      </div>
     </div>
 
     <form>
@@ -48,7 +42,15 @@
         <label>
           <textarea name="prompt" placeholder="Enter instructions here"></textarea>
         </label>
-        <div><button type="submit">➡</button></div>
+        <div>
+          <div class="file-input-wrapper">
+            <label for="image-upload">
+              <img src="/addImage.png" alt="addImage" style="width: 20px; height: 20px; margin-right: 8px;" width="20" />
+              
+            </label>
+            <input type="file" id="image-upload" accept="image/*">
+          </div>
+          <button type="submit">➡</button></div>
       </div>
     </form>
 
