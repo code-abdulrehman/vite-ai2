@@ -56,7 +56,7 @@ h1 {
   align-items: center;
   gap: 8px;
   /* margin: 0 auto; */
-  font-size: 24px;
+  font-size: 22px;
   color: var(--text-color); /* Light text color for the title */
 }
 
@@ -65,7 +65,7 @@ h1::before {
   display: inline-block;
   background: url(gemini.svg);
   width: 40px;
-  height: 40px;
+  height: 35px;
   background-size: cover;
 }
 
@@ -76,7 +76,7 @@ form {
 .image-picker {
   max-height: 307px;
   overflow: auto;
-  background: #2A3A4D; /* Darker background for image picker */
+  background: var(--tertiary-color); /* Darker background for image picker */
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -126,8 +126,8 @@ form {
 }
 
 .image-choice img {
-  width: 132px;
-  height: 132px;
+  width: 100px;
+  height: 100px;
 }
 
 .image-choice input {
@@ -156,7 +156,7 @@ button {
   padding: 12px 16px;
   font-family: unset;
   font-size: 16px;
-  background-color: #2A3A4D; /* Dark background for inputs */
+  background-color: var(--tertiary-color); /* Dark background for inputs */
   color: var(--text-color); /* Light text color for inputs */
 }
 
@@ -188,8 +188,8 @@ button:hover {
 }
 
 .image-choice img {
-  width: 132px;
-  height: 132px;
+  width: 100px;
+  height: 100px;
   border: 2px solid #ddd;
   cursor: pointer;
 }
@@ -260,7 +260,7 @@ textarea {
   width: 100%;
   box-sizing: border-box;
   border: none; /* Remove border from textarea */
-  background-color: #2A3A4D; /* Dark background for textarea */
+  background-color: var(--tertiary-color); /* Dark background for textarea */
   color: var(--text-color); /* Light text color for textarea */
 }
 
@@ -320,4 +320,6 @@ textarea:focus {
 
 .output {
   min-height: 418px;
+  font-size:0.9rem;
 }
+

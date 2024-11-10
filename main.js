@@ -18,7 +18,7 @@ function resetTextareaHeight() {
 
 // Set event listener for the prompt input to adjust height dynamically
 promptInput.addEventListener('input', () => {
-  promptInput.style.height = 'auto'; // Allow dynamic height
+  promptInput.style.height = '80px'; // Allow dynamic height
   promptInput.style.height = promptInput.scrollHeight + 'px'; // Adjust to scroll height
 });
 
@@ -103,7 +103,7 @@ form.onsubmit = async (ev) => {
           const nextEntry = chatHistory[index + 1]; // Get the AI response
           if (nextEntry && nextEntry.type === 'model') {
             return `
-              <div class="qa-box" style="border: 2px solid #041C32; padding: 15px; margin-bottom: 10px; border-radius: 8px; overflow:auto;">
+              <div class="qa-box" style="border: 2px solid #041C32; padding: 15px; margin-bottom: 10px; border-radius: 8px; overflow:auto; background:var(--tertiary-color);">
                 <strong>You:</strong> ${entry?.image ? entry?.image : ''} ${entry.content}
                 <hr>
                 <strong>AI:</strong> ${nextEntry.content}
